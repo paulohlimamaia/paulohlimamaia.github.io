@@ -106,11 +106,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var canvas = document.querySelector('canvas');
 var c = canvas.getContext('2d');
+var scoreElement = document.getElementById('score');
+var score = 0;
 canvas.width = innerWidth;
-canvas.height = innerHeight;
+canvas.height = innerHeight - 18;
 var mouse = {
   x: innerWidth / 2,
-  y: innerHeight / 2,
+  y: innerHeight - 18 / 2,
   dx: 0,
   dy: 0,
   down: false,
@@ -147,6 +149,8 @@ addEventListener('mousemove', function (event) {
       intersectedBall.dx += mouse.dx;
       intersectedBall.dy += mouse.dy;
       mouse.intersect = true;
+      score += 1;
+      scoreElement.innerHTML = score;
     }
   }
 });
@@ -176,6 +180,8 @@ addEventListener('mouseup', function (event) {
     ball = null;
   } else {
     if (!mouse.intersect) {
+      score = 0;
+      scoreElement.innerHTML = score;
       init();
     } else {
       mouse.intersect = false;
@@ -184,7 +190,9 @@ addEventListener('mouseup', function (event) {
 });
 addEventListener('resize', function () {
   canvas.width = innerWidth;
-  canvas.height = innerHeight;
+  canvas.height = innerHeight - 18;
+  score = 0;
+  scoreElement.innerHTML = score;
   init();
 }); // Objects
 
